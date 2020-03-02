@@ -15,6 +15,13 @@ class Lettering extends React.Component {
     lines: [{}]
   }
 
+  handleSetValue = (val, index) => {
+    const lines = [...this.state.lines]
+    const line = {...lines[index], ...val}
+    lines[index] = line
+    this.setState({ lines }, () => console.log(this.state.lines))
+  }
+
   handleAddLine = () => {
     this.setState({ lines: [...this.state.lines, {}] })
   }
@@ -22,7 +29,7 @@ class Lettering extends React.Component {
   handleDelete = index => {
     const lines = this.state.lines
     lines.splice(index, 1)
-    this.setState({ lines })
+    this.setState(({ lines }), () => console.log(this.state.lines))
   }
 
   render() {
@@ -31,7 +38,7 @@ class Lettering extends React.Component {
         <h1>Lettering</h1>
         <AddLine onAddLine={this.handleAddLine} />
         <Titles>Item Name | Current Count | Total Needed | Deadline</Titles>
-        {this.state.lines && this.state.lines.map((line, index) => <Line onDelete={() => this.handleDelete(index)} />)}
+        {this.state.lines && this.state.lines.map((line, index) => <Line data={line} key={index} onSetValue={val => this.handleSetValue(val, index)} onDelete={() => this.handleDelete(index)} />)}
       </LetteringWrap>
     )
   }

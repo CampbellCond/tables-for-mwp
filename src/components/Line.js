@@ -9,12 +9,12 @@ const LineWrap = styled.div`
 
 const LineInput = styled.input.attrs({ type: 'text' })``
 
-const Line = ({ text, onDelete }) => (
+const Line = ({ data, onSetValue, onDelete, handleSetValue, onUpdate }) => (
   <LineWrap>
-    <LineInput name="Item" type="text" value={text} autoFocus />
-    <LineInput name="Count" type="text" value={text} />
-    <LineInput name="Total" type="text" value={text} />
-    <LineInput name="Deadline" type="text" value={text} />
+    <LineInput name="Item" type="text" value={data.item} onChange={e => onSetValue({ item: e.target.value })} autoFocus />
+    <LineInput name="Count" type="text" value={data.count} onChange={e => onSetValue({ count: e.target.value })} />
+    <LineInput name="Total" type="text" value={data.total} onChange={e => onSetValue({ total: e.target.value })} />
+    <LineInput name="Deadline" type="text" value={data.deadline} onChange={e => onSetValue({ deadline: e.target.value })} />
     <button onClick={onDelete}>Delete</button>
   </LineWrap>
 )
